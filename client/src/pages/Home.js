@@ -3,6 +3,7 @@ import useStyles from './styles'
 import { useState, useEffect } from 'react'
 import { Button, TextField, Typography } from '@material-ui/core'
 import { fetchYHFAPI } from '../actions/object'
+import StockInfo from '../Components/StockInfo/StockInfo'
 
 const Home = () => {
     //const classes = useStyles()
@@ -14,15 +15,19 @@ const Home = () => {
     const handleSubmit = async (symbol) => {
       if(!ticker)
         setMsg("Enter a ticker")
-      
       else
       {
         const d = await fetchYHFAPI(symbol)
-        setData(d.optionChain.result[0]) 
-        console.log(d.optionChain.result[0])  
-        setShowData(true)
-        setTicker("")
-        setMsg("")
+        if(!d.optionChain.result[0])
+          setMsg("Not a valid ticker")
+        else
+        {
+          setData(d.optionChain.result[0]) 
+          console.log(d.optionChain.result[0])  
+          setShowData(true)
+          setTicker("")
+          setMsg("")
+        }
       }
     }
 
@@ -34,15 +39,7 @@ const Home = () => {
       {
         (showData && data) &&
         <div>
-          <Typography><b>Symbol: </b>{data.quote.symbol}</Typography>
-          <Typography><b>Display Name: </b>{data.quote.displayName}</Typography>
-          <Typography><b>Ask: </b>${data.quote.ask}</Typography>
-          <Typography><b>Ask Size: </b>{data.quote.askSize}</Typography>
-          <Typography><b>Bid: </b>${data.quote.bid}</Typography>
-          <Typography><b>Bid Size: </b>{data.quote.bidSize}</Typography>
-          <Typography><b>52 weeks high: </b>${data.quote.fiftyTwoWeekHigh}</Typography>
-          <Typography><b>52 weeks low: </b>${data.quote.fiftyTwoWeekLow}</Typography>
-          <Typography><b>Market Cap: </b>${data.quote.marketCap.toLocaleString()}</Typography>
+          <StockInfo data={data}/>
         </div>
       }
     </div>
