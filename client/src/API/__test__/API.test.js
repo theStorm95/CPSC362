@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import StockInfo from "../StockInfo";
 import { render } from '@testing-library/react'
 import "@testing-library/jest-dom"
-import {fetchYHFAPI} from '../../../actions/object'
+import {fetchYHFAPI} from '../../actions/object'
 
 it("Fetch Valid data", async () => {
     const data = await fetchYHFAPI('AAPL')
