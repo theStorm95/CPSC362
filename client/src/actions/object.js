@@ -10,3 +10,12 @@ export const fetchYHFAPI = async (symbol) => {
         console.log(error)
     }
 }
+
+export const fetchRecomendationData = async (symbol) => {
+    try {
+        const {data} = await api.fetchRecomendationData(symbol)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

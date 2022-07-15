@@ -27,14 +27,13 @@ const StockInfo = ({data}) => {
 
           {/* display info */}
         <Typography><b>Symbol: </b>{data.quote.symbol}</Typography>
-        <Typography><b>Display Name: </b>{data.quote.displayName}</Typography>
+        <Typography><b>Open: </b>${data.quote.regularMarketOpen}</Typography>
+        <Typography><b>Close: </b>${data.quote.regularMarketPreviousClose}</Typography>
         <Typography><b>Ask: </b>${data.quote.ask}</Typography>
-        <Typography><b>Ask Size: </b>{data.quote.askSize}</Typography>
         <Typography><b>Bid: </b>${data.quote.bid}</Typography>
-        <Typography><b>Bid Size: </b>{data.quote.bidSize}</Typography>
-        <Typography><b>52 weeks high: </b>${data.quote.fiftyTwoWeekHigh}</Typography>
-        <Typography><b>52 weeks low: </b>${data.quote.fiftyTwoWeekLow}</Typography>
-        <Typography><b>Market Cap: </b>${marketCap}</Typography>
+        <Typography><b>Volume: </b>{data.quote.regularMarketVolume}</Typography>
+        <Typography><b>PE ratio: </b>{data.quote.trailingPE}</Typography>
+        <Typography><b>EPS: </b>{data.quote.epsCurrentYear}</Typography>
   </div>
   )
 }
