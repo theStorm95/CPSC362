@@ -1,77 +1,60 @@
 import React from 'react'
-import useStyles from './styles'
+//import useStyles from './styles'
+import Navbar from '../Components/Navbar/Navbar'
 import { useState, useEffect } from 'react'
-import { Button, Typography, Container, AppBar} from '@material-ui/core'
-import { fetchRecomendationData, fetchYHFAPI } from '../actions/object'
-import StockInfo from '../Components/StockInfo/StockInfo'
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
-
+import { fetchTrendingUS } from '../actions/object'
+import { Container, Paper, Button, Divider, Typography } from '@material-ui/core'
+import Carousel from 'better-react-carousel'
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-    const classes = useStyles()
+    //const classes = useStyles()
     const [data, setData] = useState()
-    const [recommendation, setRecommendation] = useState()
-    const [ticker, setTicker] = useState("")
-    const [showData, setShowData] = useState(false)
-    const [msg, setMsg] = useState("")
-
-    // Handle click event on Submit
-    const handleSubmit = async (symbol) => {
-      if(!ticker)
-        setMsg("Enter a ticker")
-      else
-      {
-        const d = await fetchYHFAPI(symbol)
-        const r = await fetchRecomendationData(symbol)
-        if(!d.optionChain.result[0])
-          setMsg("Not a valid ticker")
-        else
-        {
-          setData(d.optionChain.result[0]) 
-          //console.log(d.optionChain.result[0])  
-
-          setRecommendation(r.finance.result.instrumentInfo.recommendation.rating)
-          //console.log(r.finance.result.instrumentInfo.recommendation.rating)
-
-          setShowData(true)
-          setTicker("") // set search bar back to empty
-          setMsg("") // set error msg back to empty string
-        }
+    const navigate = useNavigate()
+    useEffect(() => {
+      async function fetchData(){
+        const d = await fetchTrendingUS()
+        setData(d.finance.result[0])
       }
+      fetchData()
+    }, [])
+    
+    //console.log(data)
+    if(!data) return null
+
+    const Trending = (props) => {
+      return (
+        <Paper style={{padding: '5px', borderRadius:'0px'}} elevation={1}>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div>
+              <Typography variant='h5'>{props.item.symbol}</Typography>
+              <ShowChartIcon fontSize='large' style={{color: '#00FF00'}}/>
+            </div>
+            <Button onClick={() => navigate(`/quote/${props.item.symbol}`)}><ArrowForwardIcon/></Button>                
+          </div>             
+        </Paper>
+      )
     }
+
 
   return (
     <>
-    <AppBar className={classes.appBar} position='static' color="inherit">
-      <Typography style={{
-        fontFamily: 'Franklin Gothic Medium',
-        color: 'rgb(35, 38, 35)',
-        textDecoration: 'none',
-        fontSize: '30px',}}>My Porfolio &nbsp;</Typography>
-      <div className={classes.searchBar}>
-        <FormControl fullWidth>
-          <OutlinedInput
-            size="small"             
-            onChange={(e) => {setTicker(e.target.value)}}
-            startAdornment={<InputAdornment position="start"><SearchIcon/></InputAdornment>}
-            placeholder="Search a Ticker"
-            value={ticker}/>
-        </FormControl> 
-        <Button style={{marginLeft: "10px"}} variant="outlined" onClick={() => {handleSubmit(ticker)}}>Submit</Button>
-      </div>
-    </AppBar>
-      <Container maxWidth='sm'>
-        {msg && <Typography color='secondary'>{msg}</Typography>}
-        {
-          (showData && data && recommendation) &&
-          <div style={{padding: '10px'}}>
-            <StockInfo data={data}/>
-            <Typography><b>Recommendation: </b>{recommendation}</Typography>
-          </div>
+      <Navbar/>
+      <Container style={{marginTop: '20px'}}>
+        <Typography variant='h5'><b>Trending Tickers</b></Typography><br/>
+        <Divider/>
+       {data &&
+        <Carousel cols={7} rows={1} gap={0} loop>
+          { data.quotes.map((item, i) => 
+            <Carousel.Item  key={i}>
+             <Trending item={item}/>       
+            </Carousel.Item>
+          )}
+        </Carousel>
         }
+        <Divider/>
       </Container>
     </>
   )

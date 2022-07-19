@@ -1,16 +1,21 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
+import useStyles from './styles'
 
 const StockInfo = ({data}) => {
-    const marketCap = data.quote.marketCap ? data.quote.marketCap.toLocaleString() : null
     const percentChange = data.quote.regularMarketChangePercent.toFixed(2)
     const prevChange = data.quote.regularMarketChange.toFixed(2)
+    const classes = useStyles()
 
   return (
     <div data-testid="stock-info">
         {/* display the name of the company */}
-        <Typography style={{fontSize: '35px'}}><b>{data.quote.longName}</b></Typography>
-
+        <div style={{display: 'flex'}}>
+          <Typography style={{fontSize: '35px'}}><b>{data.quote.longName}</b></Typography>
+          <Button size='small'><StarBorderIcon/></Button>
+        </div>
         {/* display stock prices and changes */}
         <div style={{display: 'flex'}}>
           <Typography style={{fontSize: '25px'}}><b>{data.quote.regularMarketPrice}</b></Typography>

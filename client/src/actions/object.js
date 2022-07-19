@@ -19,3 +19,12 @@ export const fetchRecomendationData = async (symbol) => {
         console.log(error)
     }
 }
+
+export const fetchTrendingUS = async () => {
+    try {
+        const {data} = await api.fetchTrendingUS()
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -15,10 +15,11 @@ app.use('/', (req, res) => {
     res.send('APP STARTED')
 })
 
+//app.use('/stocks', stocks)
 
 const PORT = process.env.PORT || 5000
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://admin:admin@cluster0.agfvl.mongodb.net/forum?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://admin:admin@cluster0.agfvl.mongodb.net/stocksportfolio?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log('connected db')
 })
 
