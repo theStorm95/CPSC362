@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
-
+import userRoutes from './Routes/user.js'
 
 const app = express()
 
@@ -15,7 +15,7 @@ app.use('/', (req, res) => {
     res.send('APP STARTED')
 })
 
-//app.use('/stocks', stocks)
+app.use('/user', userRoutes)
 
 const PORT = process.env.PORT || 5000
 
