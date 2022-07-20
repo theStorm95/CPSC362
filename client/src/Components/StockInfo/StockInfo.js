@@ -4,13 +4,15 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import useStyles from './styles'
 
+
 const StockInfo = ({data}) => {
     const percentChange = data.quote.regularMarketChangePercent.toFixed(2)
     const prevChange = data.quote.regularMarketChange.toFixed(2)
     const classes = useStyles()
+    
 
   return (
-    <div data-testid="stock-info">
+    <div>
         {/* display the name of the company */}
         <div style={{display: 'flex'}}>
           <Typography style={{fontSize: '35px'}}><b>{data.quote.longName}</b></Typography>
