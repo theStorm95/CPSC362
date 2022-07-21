@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button } from "@material-ui/core";
 
 import useStyles from "./styles";
 
 const StockInfo = ({ data }) => {
-  const percentChange = data.quote.regularMarketChangePercent.toFixed(2);
-  const prevChange = data.quote.regularMarketChange.toFixed(2);
-  const classes = useStyles();
+  const percentChange = data.quote.regularMarketChangePercent
+  const prevChange = data.quote.regularMarketChange
+
+  // const classes = useStyles();
 
   return (
     <div>
       {/* display stock prices and changes */}
-      <div style={{ display: "flex" }}>
+      {percentChange &&
+        <div style={{ display: "flex" }}>
         <Typography style={{ fontSize: "25px" }}>
           <b>{data.quote.regularMarketPrice}</b>
         </Typography>
@@ -19,11 +21,11 @@ const StockInfo = ({ data }) => {
           {/* conditional rendering green or red for negative changes and positive changes */}
           {prevChange > 0 ? (
             <Typography style={{ fontSize: "20px", color: "#008000" }}>
-              &nbsp;+{prevChange}
+              &nbsp;+{prevChange.toFixed(2)}
             </Typography>
           ) : (
             <Typography color="secondary" style={{ fontSize: "20px" }}>
-              &nbsp;{prevChange}
+              &nbsp;{prevChange.toFixed(2)}
             </Typography>
           )}
           {percentChange > 0 ? (
@@ -36,7 +38,7 @@ const StockInfo = ({ data }) => {
             </Typography>
           )}
         </div>
-      </div>
+      </div>}
       <br />
 
       {/* display info */}

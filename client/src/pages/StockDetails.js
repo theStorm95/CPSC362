@@ -32,7 +32,7 @@ const StockDetails = () => {
             setLongName(d.optionChain.result[0].quote.shortName)
             //console.log(d.optionChain.result[0])  
             setChartData(c)
-            if(r.finance.result.instrumentInfo.recommendation)
+            if(r.finance.result.instrumentInfo)
                 setRecommendation(r.finance.result.instrumentInfo.recommendation.rating)
             //console.log(r)
             setMsg("") // set error msg back to empty string
