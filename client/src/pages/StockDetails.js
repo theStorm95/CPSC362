@@ -16,6 +16,7 @@ const StockDetails = () => {
     const [data, setData] = useState()
     const [recommendation, setRecommendation] = useState("None")
     const [chartData, setChartData] = useState()
+    const [longName, setLongName] = useState("")
 
     useEffect(() => {
         async function fetchData()
@@ -27,7 +28,8 @@ const StockDetails = () => {
             setMsg("Not a valid ticker!")
           else
           {
-            setData(d.optionChain.result[0]) 
+            setData(d.optionChain.result[0])
+            setLongName(d.optionChain.result[0].quote.shortName)
             //console.log(d.optionChain.result[0])  
             setChartData(c)
             if(r.finance.result.instrumentInfo.recommendation)
@@ -38,7 +40,7 @@ const StockDetails = () => {
         }
         fetchData()
     }, [id])
-    console.log(data)
+    //console.log(data)
   return (
     <div>
         <Navbar/>
@@ -46,7 +48,7 @@ const StockDetails = () => {
           {/* display the name of the company */}
           <div style={{ display: "flex" }}>
             <Typography style={{ fontSize: "35px" }}>
-              <b>{data.quote.longName}</b>
+              <b>{longName}</b>
             </Typography>
             <Button size="small">
               <StarBorderIcon />

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const APIkey = '2gbO895DUU7mM92wAUf1P10s7RY3NGze8ERfk8sG'
+const APIkey = '7aAoNYUrrX1vHmfkkmXEV3vfvVonpkB18VCkny1I'
 const config = {
     headers: {
         'x-api-key': APIkey

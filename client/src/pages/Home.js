@@ -17,13 +17,13 @@ const Home = () => {
     useEffect(() => {
       async function fetchData(){
         const d = await fetchTrendingUS()
-        setData(d.finance.result[0])
+        if(d)
+          setData(d.finance.result[0])
       }
       fetchData()
     }, [])
     
     //console.log(data)
-    if(!data) return null
 
 
     const Trending = (props) => {
