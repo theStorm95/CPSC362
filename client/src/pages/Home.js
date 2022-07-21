@@ -8,7 +8,7 @@ import Carousel from 'better-react-carousel'
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from "react-router-dom";
-import Graph from '../Components/Graph/Graph'
+
 
 const Home = () => {
     //const classes = useStyles()
@@ -57,7 +57,6 @@ const Home = () => {
         </Carousel>
         }
         <Divider/>
-        <Graph/>
       </Container>
     </>
   )

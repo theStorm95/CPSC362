@@ -28,3 +28,12 @@ export const fetchTrendingUS = async () => {
         console.log(error)
     }
 }
+
+export const fetchChart = async (symbol) => {
+    try {
+        const { data } = await api.fetchChart(symbol)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}

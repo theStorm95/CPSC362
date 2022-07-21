@@ -1,7 +1,6 @@
 import React from "react";
 import { Typography, Button } from "@material-ui/core";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarIcon from "@mui/icons-material/Star";
+
 import useStyles from "./styles";
 
 const StockInfo = ({ data }) => {
@@ -11,15 +10,6 @@ const StockInfo = ({ data }) => {
 
   return (
     <div>
-      {/* display the name of the company */}
-      <div style={{ display: "flex" }}>
-        <Typography style={{ fontSize: "35px" }}>
-          <b>{data.quote.longName}</b>
-        </Typography>
-        <Button size="small">
-          <StarBorderIcon />
-        </Button>
-      </div>
       {/* display stock prices and changes */}
       <div style={{ display: "flex" }}>
         <Typography style={{ fontSize: "25px" }}>
