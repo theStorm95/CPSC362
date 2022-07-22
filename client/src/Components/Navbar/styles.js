@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
       },
       heading: {
         fontFamily: 'Franklin Gothic Medium',
@@ -19,10 +19,5 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         marginLeft: '15px',
       },
-      searchBar: {
-        display: 'flex',
-        marginRight: '20px',
-        width: '600px'
-    },
 
 }))

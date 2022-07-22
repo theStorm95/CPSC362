@@ -37,3 +37,40 @@ export const fetchChart = async (symbol) => {
         console.log(error)
     }
 }
+
+export const signIn = async (formData, navigate) => {
+    const {data} = await api.signIn(formData)
+    try {
+        if(data.message)
+        {
+            return data.message
+        }
+        else
+        {
+            localStorage.setItem('profile', JSON.stringify({...data})) 
+            console.log(data)           
+            navigate('/')
+            return data
+        }
+    } catch (error) {
+            console.log(error)
+    }
+}
+
+export const signUp = async (formData, navigate) => {
+    const {data} = await api.signUp(formData)
+    try {
+        if(data.message)
+        {
+            return data.message
+        }
+        else
+        {
+            localStorage.setItem('profile', JSON.stringify({...data}))            
+            navigate('/')
+            return data
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

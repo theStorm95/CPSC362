@@ -8,17 +8,23 @@ import Carousel from 'better-react-carousel'
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Home = () => {
     //const classes = useStyles()
     const [data, setData] = useState()
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(true)
+    // const user = JSON.parse(localStorage.getItem('profile'))
+    // console.log(user)
+
     useEffect(() => {
       async function fetchData(){
         const d = await fetchTrendingUS()
         if(d)
           setData(d.finance.result[0])
+        setIsLoading(false)
       }
       fetchData()
     }, [])
@@ -44,20 +50,22 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <Container style={{marginTop: '20px'}}>
-        <Typography variant='h5'><b>Trending Tickers</b></Typography><br/>
-        <Divider/>
-       {data &&
-        <Carousel cols={7} rows={1} gap={0} loop>
-          { data.quotes.map((item, i) => 
-            <Carousel.Item  key={i}>
-             <Trending item={item}/>       
-            </Carousel.Item>
+      {isLoading ? <CircularProgress/> : (
+        <Container style={{marginTop: '20px'}}>
+          <Typography variant='h5'><b>Trending Tickers</b></Typography><br/>
+          <Divider/>
+          {data &&
+          <Carousel cols={7} rows={1} gap={0} loop>
+            { data.quotes.map((item, i) => 
+              <Carousel.Item  key={i}>
+              <Trending item={item}/>       
+              </Carousel.Item>
           )}
-        </Carousel>
-        }
-        <Divider/>
-      </Container>
+          </Carousel>
+          }
+          <Divider/>
+        </Container>
+      )}   
     </>
   )
 }

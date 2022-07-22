@@ -1,18 +1,20 @@
 import React from 'react'
 import useStyles from './styles'
 import { useState } from 'react'
-import { Button, Typography, Container, AppBar} from '@material-ui/core'
+import { Button, Typography, AppBar} from '@material-ui/core'
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate, Link } from "react-router-dom";
 
+
 const Navbar = () => {
     const classes = useStyles()
     const navigate = useNavigate()
     const [ticker, setTicker] = useState("")
     const [msg, setMsg] = useState("")
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
     const handleSubmit = async () => {
         if(!ticker)
@@ -20,19 +22,25 @@ const Navbar = () => {
         else
           navigate(`/quote/${ticker}`)     
       }
+
+    const logout = () => {
+      localStorage.clear()
+      setUser(null)
+    }
   return (
     <>
     {/* Navbar */}
     <AppBar className={classes.appBar} position='static' color="inherit">
       <Typography style={{
+        marginLeft: '5px',
         fontFamily: 'Franklin Gothic Medium',
         color: 'rgb(35, 38, 35)',
         textDecoration: 'none',
         fontSize: '30px',}}
-        component={Link} to='/'>My Porfolio &nbsp;
+        component={Link} to='/'><b>My Porfolio</b>
       </Typography>
       {msg && <Typography color='secondary'>{msg}</Typography>}
-      <div style={{display: 'flex', marginRight: '20px', width: '600px'}}>
+      <div style={{display: 'flex', marginRight: '20px'}}>
         <FormControl fullWidth>
           <OutlinedInput
             size="small"             
@@ -43,6 +51,14 @@ const Navbar = () => {
         </FormControl> 
         <Button style={{marginLeft: "10px"}} variant="outlined" onClick={() => {handleSubmit(ticker)}}>Submit</Button>
       </div>
+      {!user ? 
+        <Button variant="outlined" style={{marginRight: '8px'}} onClick={() => {navigate('/login')}}>Sign in</Button> : 
+      (
+        <div style={{display:'flex'}}>
+          <Typography style={{marginTop: '6px'}}><b>{user.result.name}</b>&nbsp;&nbsp;</Typography>
+          <Button variant="contained" color='secondary' onClick={logout}>Logout</Button>
+        </div>
+      )}
     </AppBar>
     </>
   )

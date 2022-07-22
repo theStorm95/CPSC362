@@ -23,6 +23,19 @@ export default makeStyles((theme) => ({
         display: 'flex',
         marginRight: '20px',
         width: '600px'
-    },
-
+      },
+      paper: {
+        padding: theme.spacing(2),
+      },
+      form: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+      },
+      alert: {
+        marginBottom: '30px',
+      },
+      container: {
+        padding: '50px'
+      }
 }))
