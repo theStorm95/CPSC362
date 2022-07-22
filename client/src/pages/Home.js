@@ -54,7 +54,6 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      abc
       {isLoading ? (
         <CircularProgress />
       ) : (
