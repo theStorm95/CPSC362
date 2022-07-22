@@ -30,7 +30,11 @@ const Navbar = () => {
   return (
     <>
     {/* Navbar */}
-    <AppBar className={classes.appBar} position='static' color="inherit">
+    <AppBar style={{padding: '5px',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',}} position='static' color="inherit">
       <Typography style={{
         marginLeft: '5px',
         fontFamily: 'Franklin Gothic Medium',
